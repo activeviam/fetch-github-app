@@ -1,3 +1,6 @@
+[![npm version](https://img.shields.io/npm/v/fetch-github-app.svg)](https://npmjs.org/package/fetch-github-app)
+[![build status](https://img.shields.io/circleci/project/github/activeviam/fetch-github-app.svg)](https://circleci.com/gh/activeviam/fetch-github-app)
+
 # Goal
 
 This package is made to simplify calls to the GitHub API as a [GitHub App](https://developer.github.com/apps/). It [authenticates as a GitHub App](https://developer.github.com/apps/building-integrations/setting-up-and-registering-github-apps/about-authentication-options-for-github-apps/#authenticating-as-a-github-app) and then gives you a wrapper around [Fetch](https://developer.mozilla.org/en/docs/Web/API/Fetch_API) so that you can interact with the GitHub API easily.
@@ -37,4 +40,3 @@ To test the package on your machine:
  1. `npm install`
  2. Create a `.env` file respecting the [dotenv guidelines](https://github.com/motdotla/dotenv) and add the environment variables mentioned by `index.test.js`.
  3. `npm test`
- 

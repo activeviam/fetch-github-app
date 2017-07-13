@@ -67,9 +67,21 @@ const fetchInstallationAccessToken = ({
 const fetchGithubApp = config => {
   // eslint-disable-next-line no-process-env
   if (process.env.NODE_ENV !== 'production') {
-    ['appId', 'appPrivateKey', 'installationId', 'userAgent'].forEach(key => {
-      assert.ok(config[key], `Missing configuration value for "${key}".`);
-    });
+    assert(typeof config.appId === 'number', 'appId should be a number');
+    assert(
+      /-----BEGIN RSA PRIVATE KEY-----[\s\S]+-----END RSA PRIVATE KEY-----/m.test(
+        config.appPrivateKey
+      ),
+      'appPrivateKey should be a valid RSA private key'
+    );
+    assert(
+      typeof config.installationId === 'number',
+      'installationId should be a number'
+    );
+    assert(
+      typeof config.userAgent === 'string',
+      'userAgent should be a string'
+    );
   }
 
   return fetchInstallationAccessToken(config).then(installationAccessToken => {

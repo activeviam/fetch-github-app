@@ -1,37 +1,41 @@
 /* eslint-env jest */
-/* eslint-disable no-process-env */
+/* eslint-disable no-console, no-magic-numbers, no-process-env */
 
 'use strict';
 
-const dotenv = require('dotenv');
+const envalid = require('envalid');
 
 const fetchGithubApp = require('.');
 
-const config = {};
+let config = {};
 
 beforeAll(() => {
-  dotenv.config();
-
-  const envToConfigMapping = {
-    APP_ID: {format: Number, key: 'appId'},
-    // Using base64 encoding in order not to deal with cumbersome EOL escaping.
-    APP_PEM_BASE64_ENCODED: {
-      format: value => Buffer.from(value, 'base64').toString('utf8'),
-      key: 'appPrivateKey',
-    },
-    INSTALLATION_ID: {format: Number, key: 'installationId'},
-    USER_AGENT: {format: String, key: 'userAgent'},
+  // Envalid logs an error and exit the process when the env is invalid.
+  // Instead, we want it to just throw an error so that jest can display it.
+  // That's why we temporarily hack the original console.error.
+  const originalConsoleErrorBehaviour = console.error;
+  console.error = err => {
+    throw new Error(err);
   };
-
-  Object.keys(envToConfigMapping).forEach(envKey => {
-    const {key: configKey, format} = envToConfigMapping[envKey];
-
-    if (!process.env.hasOwnProperty(envKey)) {
-      throw new Error(`Missing environment variable ${envKey}.`);
-    }
-
-    config[configKey] = format(process.env[envKey]);
-  });
+  try {
+    const {
+      APP_ID: appId,
+      APP_PEM_BASE64_ENCODED: appPrivateKey,
+      INSTALLATION_ID: installationId,
+      USER_AGENT: userAgent,
+    } = envalid.cleanEnv(process.env, {
+      APP_ID: envalid.num(),
+      // Using base64 encoding in order not to deal with cumbersome EOL escaping.
+      APP_PEM_BASE64_ENCODED: envalid.makeValidator(str =>
+        Buffer.from(str, 'base64').toString('utf8')
+      )(),
+      INSTALLATION_ID: envalid.num(),
+      USER_AGENT: envalid.str(),
+    });
+    config = {appId, appPrivateKey, installationId, userAgent};
+  } finally {
+    console.error = originalConsoleErrorBehaviour;
+  }
 });
 
 test('works as expected', () =>
