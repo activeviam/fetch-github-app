@@ -88,19 +88,15 @@ const fetchGithubApp = config => {
     const fetch = (path, request = {}) =>
       fetchJson(
         getGithubApiUrl(path),
-        Object.assign(
-          {},
-          request,
-          {
-            headers: Object.assign(
-              getApiRequestHeaders({
-                installationAccessToken,
-                userAgent: config.userAgent,
-              }),
-              request.headers || {}
-            ),
-          }
-        )
+        Object.assign({}, request, {
+          headers: Object.assign(
+            getApiRequestHeaders({
+              installationAccessToken,
+              userAgent: config.userAgent,
+            }),
+            request.headers || {}
+          ),
+        })
       );
 
     return {fetch, installationAccessToken};
