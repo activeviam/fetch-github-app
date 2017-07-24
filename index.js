@@ -89,6 +89,8 @@ const fetchGithubApp = config => {
       fetchJson(
         getGithubApiUrl(path),
         Object.assign(
+          {},
+          request,
           {
             headers: Object.assign(
               getApiRequestHeaders({
@@ -97,8 +99,7 @@ const fetchGithubApp = config => {
               }),
               request.headers || {}
             ),
-          },
-          request
+          }
         )
       );
 
