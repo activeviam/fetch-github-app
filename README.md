@@ -17,7 +17,8 @@ This package is made to simplify calls to the GitHub API as a [GitHub App](https
      appId: 1337,
      // See https://developer.github.com/apps/building-integrations/setting-up-and-registering-github-apps/registering-github-apps/#generating-a-private-key.
      appPrivateKey: '-----BEGIN RSA PRIVATE KEY----- ...',
-     // Can be found in the "Installed integrations" section of your developer or organization settings.
+     // Can be found in the "Installed GitHub Apps" section of your developer or organization settings,
+     // or in the payload of WebHook requests sent by GitHub to your App.
      installationId: 42,
      // See https://developer.github.com/v3/#user-agent-required.
      userAgent: 'your-username-or-org-name'
