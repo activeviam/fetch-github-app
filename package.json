@@ -5,7 +5,7 @@
   "description": "Node.js wrapper around Fetch to query the GitHub API as a GitHub App",
   "dependencies": {
     "jwt-simple": "^0.5.1",
-    "node-fetch-json": "^0.0.3"
+    "node-fetch-json": "^0.1.4"
   },
   "devDependencies": {
     "envalid": "^3.1.1",

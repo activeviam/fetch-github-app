@@ -50,12 +50,11 @@ const fetchInstallationAccessToken = ({
   installationId,
   userAgent,
 }) =>
-  fetchJson(getGithubApiUrl(`installations/${installationId}/access_tokens`), {
+  fetchJson.post(getGithubApiUrl(`installations/${installationId}/access_tokens`), {}, {
     headers: getApiRequestHeaders({
       appJwt: signJwt({appId, appPrivateKey}),
       userAgent,
     }),
-    method: 'POST',
   }).then(body => {
     if (!body.token) {
       throw new Error(`Missing token in body: ${JSON.stringify(body)}`);
@@ -86,8 +85,10 @@ const fetchGithubApp = config => {
 
   return fetchInstallationAccessToken(config).then(installationAccessToken => {
     const fetch = (path, request = {}) =>
-      fetchJson(
+      fetchJson.request(
+        request.method,
         getGithubApiUrl(path),
+        request.body,
         Object.assign({}, request, {
           headers: Object.assign(
             getApiRequestHeaders({
