@@ -3,7 +3,7 @@
 const assert = require('assert');
 
 const jwt = require('jwt-simple');
-const fetchJson = require('node-fetch-json');
+const fetchJson = require('fetch-json');
 
 const githubApiRootUrl = 'https://api.github.com';
 
