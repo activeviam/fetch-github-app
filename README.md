@@ -5,6 +5,10 @@
 
 This package is made to simplify calls to the GitHub API as a [GitHub App](https://developer.github.com/apps/). It [authenticates as a GitHub App](https://developer.github.com/apps/building-integrations/setting-up-and-registering-github-apps/about-authentication-options-for-github-apps/#authenticating-as-a-github-app) and then gives you a wrapper around [Fetch](https://developer.mozilla.org/en/docs/Web/API/Fetch_API) so that you can interact with the GitHub API easily.
 
+## Deprecation notice
+
+GitHub now has an official package for this: https://www.npmjs.com/package/@octokit/app.
+
 # Usage
 
  1. Add this package to your dependencies: `npm install --save fetch-github-app`
